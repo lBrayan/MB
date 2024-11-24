@@ -1,12 +1,11 @@
 <!-- camera.component.html -->
 <div class="camera-container">
-	<video #videoElement
-		autoplay
-		playsinline></video>
-	<button (click)="captureFrame()">Capturar Foto</button>
-	<div *ngIf="detectedText">
-		<h3>Texto Detectado:</h3>
-		<p>{{ detectedText }}</p>
+	<div>
+		<div class="placa" *ngIf="detectedText">
+			<p>{{ detectedText }}</p>
+		</div>
+		<video #videoElement
+			autoplay
+			playsinline></video>
 	</div>
-	<img [src]="data64Img" alt="">
 </div>

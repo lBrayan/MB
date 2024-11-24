@@ -1,0 +1,20 @@
+:host {
+    .camera-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .placa {
+        position: absolute;
+        background: #e2bd00;
+        border: 1px solid black;
+        border-radius: .5em;
+        padding: 10px 15px;
+        font-family: monospace;
+        p {
+            color: black;
+            margin: 0;
+        }
+    }
+}
