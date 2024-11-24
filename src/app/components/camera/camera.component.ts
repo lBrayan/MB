@@ -20,15 +20,15 @@ export class CameraComponent {
 
   @ViewChild('videoElement') videoElement!: ElementRef;
   detectedText: string = '';
-  data64Img:string = '';
+  data64Img: string = '';
   readonly platformID = inject(PLATFORM_ID);
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    if(isPlatformBrowser(this.platformID)){
+    if (isPlatformBrowser(this.platformID)) {
       this.startCamera();
-      if(isPlatformBrowser(this.platformID)){
+      if (isPlatformBrowser(this.platformID)) {
         interval(500).subscribe(() => {
           this.captureFrame()
         });
@@ -37,7 +37,9 @@ export class CameraComponent {
   }
 
   startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { exact: "environment" } }
+    })
       .then((stream) => {
         this.videoElement.nativeElement.srcObject = stream;
       })
@@ -66,10 +68,10 @@ export class CameraComponent {
   }
 
   sendFrameToServer(imageData: string) {
-    this.http.post(environment.backend+'/detect_plate', { image: imageData })
+    this.http.post(environment.backend + '/detect_plate', { image: imageData })
       .subscribe((response: any) => {
-        this.detectedText = response.plate.slice(0,7);
-      }, (error:any) => {
+        this.detectedText = response.plate.slice(0, 7);
+      }, (error: any) => {
         console.error('Error al enviar la imagen al servidor', error);
       });
   }
