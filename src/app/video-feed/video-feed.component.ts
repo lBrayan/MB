@@ -2,6 +2,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { interval } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Component({
   selector: 'app-video-feed',
@@ -15,7 +16,7 @@ import { interval } from 'rxjs';
 })
 export class VideoFeedComponent {
 
-  videoUrl = 'http://127.0.0.1:5001/video_feed'; // Ruta al feed de Flask
+  videoUrl = environment.backend+'/video_feed'; // Ruta al feed de Flask
   plateText: string = ''; // Variable para almacenar el texto de la placa
   readonly platformId = inject(PLATFORM_ID);
 
@@ -25,7 +26,7 @@ export class VideoFeedComponent {
     // Usamos intervalos para obtener la última placa cada segundo
     if(isPlatformBrowser(this.platformId)){
       interval(1000).subscribe(() => {
-        this.http.get<{ plate: string }>('http://127.0.0.1:5001/last_plate')
+        this.http.get<{ plate: string }>(environment.backend+'/last_plate')
           .subscribe(response => {
             this.plateText = response.plate.slice(0,7);
           });
