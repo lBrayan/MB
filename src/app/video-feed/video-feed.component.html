@@ -1,0 +1,12 @@
+<div class="video-container">
+	<h1>
+		Detección de Placas en Tiempo Real
+	</h1>
+	<div *ngIf="plateText">
+		<h3>
+			Placa detectada: {{ plateText }}
+		</h3>
+	</div>
+	<img [src]="videoUrl"
+		alt="Video en tiempo real">
+</div>
